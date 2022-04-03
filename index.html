@@ -1,4 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <h1>hello xxc</h1>
+<head>
+  <title>日麻牌画</title>
+  <style>
+    input {
+      font-size: 30px;
+      display: block;
+      margin: 30px auto 30px auto;
+    }
+    div {
+      width: 80%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" onkeyup="plot()">
+  <div></div>
+  <script>
+    const input = document.querySelector('input')
+    const div = document.querySelector('div')
+    function plot() {
+      const pai = input.value
+      if ('mpsz'.includes(pai.slice(-1))) {
+        div.innerHTML = ''
+        for (let i of paiToArray(pai)) {
+          let img = document.createElement('img')
+          img.src = 'images/' + i + '.png'
+          div.appendChild(img)
+        }
+      }
+    }
+    //'123m' to ['1m','2m','3m']
+    function paiToArray(pai){
+      let output = []
+      let tail
+      pai = pai.toLowerCase()
+      for(let i=pai.length-1;i>=0;i--){
+          if('mspz'.indexOf(pai[i]) !== -1){
+              tail = pai[i]
+              continue
+          }
+          output.unshift(pai[i]+tail)
+      }
+      return output
+    }
+  </script>
+</body>
 </html>
